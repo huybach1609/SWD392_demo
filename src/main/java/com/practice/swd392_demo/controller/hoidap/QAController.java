@@ -25,7 +25,7 @@ public class QAController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        User demoUser = (User) session.getAttribute("userSession");
+        Account demoUser = (Account) session.getAttribute("accountSession");
         if(demoUser == null){
 
         }

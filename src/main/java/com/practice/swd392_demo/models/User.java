@@ -3,7 +3,7 @@ package com.practice.swd392_demo.models;
 import com.practice.swd392_demo.enums.AccountRole;
 import lombok.*;
 
-import javax.management.relation.Role;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -15,5 +15,10 @@ public class User {
     private String firstName;
     private String middleName;
     private String lastName;
-    private AccountRole role;
+    private Date dob;
+    private String idCardNo;
+    private String homeTown;
+    private int tribeId;
+    private int genderId;
+    private int departmentId;
 }

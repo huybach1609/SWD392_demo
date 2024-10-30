@@ -1,6 +1,7 @@
 package com.practice.swd392_demo.models;
 
 
+import com.practice.swd392_demo.enums.AccountRole;
 import lombok.*;
 
 
@@ -15,5 +16,5 @@ public class Account {
     private String Email;
     private String Password;
     private String ActivationKey;
-    private int String;
+    private AccountRole role;
 }
