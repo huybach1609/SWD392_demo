@@ -1,5 +1,6 @@
 package com.practice.swd392_demo.services.user;
 
+import com.practice.swd392_demo.exceptions.IdCardNoDuplicationException;
 import com.practice.swd392_demo.models.User;
 import com.practice.swd392_demo.repository.user.IUserRepository;
 
@@ -12,7 +13,28 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public User addUser(String firstName, String middleName, String lastName, Date dob, String idCardNo, String homeTown, Tribe tribe, Gender gender, Department department) {
-        return null;
+    public User addUser(String firstName, String middleName, String lastName,
+                        Date dob, String idCardNo, String homeTown,
+                        int tribe, int gender, Integer department)
+            throws IdCardNoDuplicationException {
+        if(_userRepository.searchByIdCardNo(idCardNo) != null){
+            throw new IdCardNoDuplicationException();
+        }
+        User createdUser = new User();
+        createdUser.setFirstName(firstName);
+        createdUser.setMiddleName(middleName);
+        createdUser.setLastName(lastName);
+        createdUser.setDob(dob);
+        createdUser.setIdCardNo(idCardNo);
+        createdUser.setHomeTown(homeTown);
+        createdUser.setTribeId(tribe);
+        createdUser.setGenderId(gender);
+        createdUser.setDepartmentId(department);
+        return _userRepository.add(createdUser);
+    }
+
+    @Override
+    public boolean removeUser(User user) {
+        return _userRepository.remove(user.getId());
     }
 }

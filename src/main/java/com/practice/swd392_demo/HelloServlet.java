@@ -13,9 +13,9 @@ public class HelloServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
-        User user = new User(1, "John", "A.", "Doe", AccountRole.STAFF);
-        session.setAttribute("userSession", user);
-        request.getRequestDispatcher("/home.jsp").forward(request, response);
+        //User user = new User(1, "John", "A.", "Doe", AccountRole.STAFF);
+        //session.setAttribute("userSession", user);
+        //request.getRequestDispatcher("/home.jsp").forward(request, response);
     }
 
 }

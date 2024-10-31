@@ -20,5 +20,9 @@ public class User {
     private String homeTown;
     private int tribeId;
     private int genderId;
-    private int departmentId;
+    private Integer departmentId;
+
+    private Tribe tribe;
+    private Gender gender;
+    private Department department;
 }

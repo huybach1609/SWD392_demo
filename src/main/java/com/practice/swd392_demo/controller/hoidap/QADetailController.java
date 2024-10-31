@@ -69,7 +69,7 @@ public class QADetailController extends HttpServlet {
         User demoUser = (User) session.getAttribute("userSession");
         if (demoUser == null) {
             // return to error page no have session
-            demoUser = new User(1, "Demo", "User", "Example", AccountRole.USER); // replace with actual user if needed
+            //demoUser = new User(1, "Demo", "User", "Example", AccountRole.USER); // replace with actual user if needed
         }
         Answer ans = new Answer();
 

@@ -24,22 +24,22 @@ public class QuestionRepository implements IQuestionRepository {
         departments.add(new Department(3, "Cục Tổ chức cán bộ"));
         departments.add(new Department(4, "Cục Nhà giáo và Cán bo quản lý giáo dục"));
 
-        List<User> users = new ArrayList<>();
-        users.add(new User(1, "John", "A.", "Doe", AccountRole.STAFF));
-        users.add(new User(2, "Jane", "B.", "Smith", AccountRole.STAFF));
-        users.add(new User(3, "Alice", "C.", "Johnson",AccountRole.USER));
-        users.add(new User(4, "Bob", "D.", "Williams", AccountRole.USER));
+//        List<User> users = new ArrayList<>();
+//        users.add(new User(1, "John", "A.", "Doe", AccountRole.STAFF));
+//        users.add(new User(2, "Jane", "B.", "Smith", AccountRole.STAFF));
+//        users.add(new User(3, "Alice", "C.", "Johnson",AccountRole.USER));
+//        users.add(new User(4, "Bob", "D.", "Williams", AccountRole.USER));
 
-        List<Answer> answers1 = new ArrayList<>();
-        answers1.add(new Answer(1, "Answer 1 Title", "This is the content of answer 1", new Date(), 101, 1,null,null));
-        answers1.add(new Answer(2, "Answer 2 Title", "This is the content of answer 2", new Date(), 102, 1, null, null));
-
-        questions.add(new Question(1, "Question 1 Title", "This is the content of question 1", new Date(), 1, 1, answers1, users.get(0), departments.get(0)));
-
-        List<Answer> answers2 = new ArrayList<>();
-        answers2.add(new Answer(3, "Answer 3 Title", "This is the content of answer 3", new Date(), 103, 2, null, null));
-
-        questions.add(new Question(2, "Question 2 Title", "This is the content of question 2", new Date(), 2, 3, answers2, users.get(1), departments.get(2)));
+//        List<Answer> answers1 = new ArrayList<>();
+//        answers1.add(new Answer(1, "Answer 1 Title", "This is the content of answer 1", new Date(), 101, 1,null,null));
+//        answers1.add(new Answer(2, "Answer 2 Title", "This is the content of answer 2", new Date(), 102, 1, null, null));
+//
+//        questions.add(new Question(1, "Question 1 Title", "This is the content of question 1", new Date(), 1, 1, answers1, users.get(0), departments.get(0)));
+//
+//        List<Answer> answers2 = new ArrayList<>();
+//        answers2.add(new Answer(3, "Answer 3 Title", "This is the content of answer 3", new Date(), 103, 2, null, null));
+//
+//        questions.add(new Question(2, "Question 2 Title", "This is the content of question 2", new Date(), 2, 3, answers2, users.get(1), departments.get(2)));
     }
 
     @Override

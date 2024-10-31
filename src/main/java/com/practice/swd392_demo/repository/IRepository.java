@@ -1,5 +1,6 @@
 package com.practice.swd392_demo.repository;
 
 public interface IRepository<T, ID> {
-    void add(T object);
+    T add(T object);
+    boolean remove(ID id);
 }

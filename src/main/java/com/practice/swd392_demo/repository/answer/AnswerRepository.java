@@ -19,16 +19,16 @@ public class AnswerRepository implements IAnswerRepository {
     }
     private void sampleList() {
         List<Question> questions = new QuestionRepository().getList();
-        List<User> users = new ArrayList<>();
-        users.add(new User(1, "John", "A.", "Doe", AccountRole.STAFF));
-        users.add(new User(2, "Jane", "B.", "Smith", AccountRole.STAFF));
-        users.add(new User(3, "Alice", "C.", "Johnson",AccountRole.USER));
-        users.add(new User(4, "Bob", "D.", "Williams", AccountRole.USER));
+//        List<User> users = new ArrayList<>();
+//        users.add(new User(1, "John", "A.", "Doe", AccountRole.STAFF));
+//        users.add(new User(2, "Jane", "B.", "Smith", AccountRole.STAFF));
+//        users.add(new User(3, "Alice", "C.", "Johnson",AccountRole.USER));
+//        users.add(new User(4, "Bob", "D.", "Williams", AccountRole.USER));
 
-        answers.add(new Answer(1, "Answer 1 Title", "This is the content of answer 1", new Date(), 101, 1,users.get(0),questions.get(0)));
-        answers.add(new Answer(2, "Answer 2 Title", "This is the content of answer 2", new Date(), 102, 1, users.get(1), questions.get(0)));
-
-        answers.add(new Answer(3, "Answer 3 Title", "This is the content of answer 3", new Date(), 103, 2, users.get(2),questions.get(1)));
+//        answers.add(new Answer(1, "Answer 1 Title", "This is the content of answer 1", new Date(), 101, 1,users.get(0),questions.get(0)));
+//        answers.add(new Answer(2, "Answer 2 Title", "This is the content of answer 2", new Date(), 102, 1, users.get(1), questions.get(0)));
+//
+//        answers.add(new Answer(3, "Answer 3 Title", "This is the content of answer 3", new Date(), 103, 2, users.get(2),questions.get(1)));
 
     }
 

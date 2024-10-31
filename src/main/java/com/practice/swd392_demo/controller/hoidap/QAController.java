@@ -56,7 +56,7 @@ public class QAController extends HttpServlet {
         HttpSession session = req.getSession();
         User demoUser = (User) session.getAttribute("userSession");
         if(demoUser == null){
-            demoUser = new User(1, "Demo", "User", "Example", AccountRole.USER); // replace with actual user if needed
+            //demoUser = new User(1, "Demo", "User", "Example", AccountRole.USER); // replace with actual user if needed
         }
         // Create a new Question with demo data for user and department
         Department selectedDepartment = departments.stream()
@@ -85,7 +85,7 @@ public class QAController extends HttpServlet {
             req.setAttribute("departments", departments);
             req.setAttribute("mess", "Question submitted successfully!");
             req.setAttribute("navIndex", 3);
-            req.setAttribute("isStaff", demoUser.getRole() == AccountRole.STAFF);
+            //req.setAttribute("isStaff", demoUser.getRole() == AccountRole.STAFF);
             req.getRequestDispatcher("/view/hoidapList.jsp").forward(req, resp);
         } else {
             req.setAttribute("mess", "Error: Selected department not found.");

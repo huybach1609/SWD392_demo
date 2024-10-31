@@ -13,8 +13,12 @@ import lombok.*;
 
 public class Account {
     private int id;
-    private String Email;
-    private String Password;
-    private String ActivationKey;
+    private String email;
+    private String password;
+    private String activationKey;
+    private int userId;
+    private int roleId;
+
+    private User user;
     private AccountRole role;
 }
