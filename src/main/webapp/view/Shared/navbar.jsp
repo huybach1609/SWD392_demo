@@ -29,7 +29,6 @@
         <img src="<c:url value="/image/dvclogo.png"/>" height="75px"/>
     </a>
     <div class="col">
-        hello
     </div>
 </div>
 
