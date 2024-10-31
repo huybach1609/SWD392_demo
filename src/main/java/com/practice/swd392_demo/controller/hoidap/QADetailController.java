@@ -58,7 +58,9 @@ public class QADetailController extends HttpServlet {
         req.setAttribute("num1", cauhoidatraloi);
         req.setAttribute("num2", totalCauhoi - cauhoidatraloi);
 
-        req.setAttribute("departmentName", demoUser.getDepartment().getDepartmentName());
+        if(demoUser.getDepartment() != null) {
+            req.setAttribute("departmentName", demoUser.getDepartment().getDepartmentName());
+        }
         req.setAttribute("ans", ans);
         req.setAttribute("question", question);
         req.setAttribute("action", action);
