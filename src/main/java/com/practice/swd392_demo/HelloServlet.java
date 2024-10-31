@@ -2,6 +2,7 @@ package com.practice.swd392_demo;
 
 import java.io.*;
 
+import com.practice.swd392_demo.DAL.UserDAO;
 import com.practice.swd392_demo.enums.AccountRole;
 import com.practice.swd392_demo.models.User;
 import jakarta.servlet.ServletException;
@@ -13,9 +14,13 @@ public class HelloServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
-        //User user = new User(1, "John", "A.", "Doe", AccountRole.STAFF);
-        //session.setAttribute("userSession", user);
-        //request.getRequestDispatcher("/home.jsp").forward(request, response);
+//        staff roll
+        User user = UserDAO.ins.getByID(2);
+//        user roll
+//        User user= UserDAO.ins.getByID(5);
+        System.out.println(user);
+        session.setAttribute("userSession", user);
+        request.getRequestDispatcher("/home.jsp").forward(request, response);
     }
 
 }
