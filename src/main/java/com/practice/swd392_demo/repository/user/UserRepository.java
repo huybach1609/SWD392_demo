@@ -22,7 +22,7 @@ public class UserRepository extends Repository implements IUserRepository {
             ps.setString(3, object.getLastName());
             ps.setDate(4, object.getDob());
             ps.setString(5, object.getIdCardNo());
-            ps.setString(6, object.getHomeTown());
+            ps.setString(6, object.getHometown());
             ps.setInt(7, object.getTribeId());
             ps.setInt(8, object.getGenderId());
             if(object.getDepartmentId() != null) {
@@ -93,7 +93,7 @@ public class UserRepository extends Repository implements IUserRepository {
                 user.setLastName(resultSet.getString("last_name"));
                 user.setDob(resultSet.getDate("dob"));
                 user.setIdCardNo(resultSet.getString("id_card_no"));
-                user.setHomeTown(resultSet.getString("hometown"));
+                user.setHometown(resultSet.getString("hometown"));
                 user.setTribeId(resultSet.getInt("tribe_id"));
                 user.setGenderId(resultSet.getInt("gender_id"));
                 user.setDepartmentId(resultSet.getInt("department_id"));

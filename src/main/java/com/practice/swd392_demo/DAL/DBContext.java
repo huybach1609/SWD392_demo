@@ -12,7 +12,7 @@ public class DBContext {
     private String portNumber = "1433";
     private String dbName = "SWD_demo";
     private String useId = "sa";
-    private String pass = "123";
+    private String pass = "sa";
 
     /*DO NOT EDIT THE BELOW METHOD, YOU MUST USE ONLY THIS ONE FOR YOUR DATABASE CONNECTION*/
     public Connection getConnection() throws Exception {

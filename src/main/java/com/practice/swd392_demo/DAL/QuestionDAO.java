@@ -58,10 +58,11 @@ public class QuestionDAO extends DAO {
     }
 
     public void saveQuestion(Question c) {
-        String sql = "insert into Question (title, content, ask_date, sender_id,  department_id)\n" +
-                "values (?,?,?,?,?)";
+        String sql = "insert into Question (title, content, ask_date, sender_id, department_id, answer_id)\n" +
+                "values (?,?,?,?,?, ?)";
         try {
-            getDataByParameter(sql, c.getTitle(), c.getContent(), c.getAskDate(), c.getSenderId(), c.getDepartmentId());
+            getDataByParameter(sql, c.getTitle(), c.getContent(), c.getAskDate(), c.getSenderId(),
+                    c.getDepartmentId(), c.getAnswerId());
         } catch (Exception e) {
             System.out.println("Error at saveQuestion: " + e.getMessage());
         }

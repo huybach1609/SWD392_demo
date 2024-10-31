@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Repository {
+public abstract class Repository {
     final String USER_NAME="sa";
     final String PASSWORD="sa";
     final String URL = "jdbc:sqlserver://localhost:1433;databasename=SWD_Demo;encrypt=true;trustServerCertificate=true;";

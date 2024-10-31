@@ -15,9 +15,9 @@ public class HelloServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
 //        staff roll
-        User user = UserDAO.ins.getByID(2);
+//        User user = UserDAO.ins.getByID(5);
 //        user roll
-//        User user= UserDAO.ins.getByID(5);
+        User user= UserDAO.ins.getByID(6);
         System.out.println(user);
         session.setAttribute("userSession", user);
         request.getRequestDispatcher("/home.jsp").forward(request, response);

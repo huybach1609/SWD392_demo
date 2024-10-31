@@ -19,6 +19,7 @@ public class Question {
     private Date askDate;
     private int senderId;
     private int departmentId;
+    private Integer answerId;
 
 //   external
     private User sender;
@@ -30,6 +31,7 @@ public class Question {
         this.content = rs.getString("content");
         this.askDate = rs.getDate("ask_date");
         this.senderId = rs.getInt("sender_id");
+        this.answerId = rs.getInt("answer_id");
         this.departmentId = rs.getInt("department_id");
     }
 

@@ -26,7 +26,7 @@ public class UserService implements IUserService{
         createdUser.setLastName(lastName);
         createdUser.setDob(dob);
         createdUser.setIdCardNo(idCardNo);
-        createdUser.setHomeTown(homeTown);
+        createdUser.setHometown(homeTown);
         createdUser.setTribeId(tribe);
         createdUser.setGenderId(gender);
         createdUser.setDepartmentId(department);

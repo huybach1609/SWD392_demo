@@ -16,6 +16,10 @@
     <div>uc-8</div>
     <a href="${pageContext.request.contextPath}/hoidap/list">hoi dap kien nghi</a>
   </div>
+  <div>
+    <label>UC-2</label>
+    <a href="${pageContext.request.contextPath}/account/register">Dang ky</a>
+  </div>
 </div>
 </body>
 </html>
