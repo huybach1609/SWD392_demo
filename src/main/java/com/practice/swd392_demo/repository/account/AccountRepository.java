@@ -34,12 +34,7 @@ public class AccountRepository extends Repository implements IAccountRepository{
         } catch (ClassNotFoundException | SQLException e) {
             Logger.getLogger(AccountRepository.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (ps != null) ps.close();
-            } catch (SQLException e) {
-                Logger.getLogger(AccountRepository.class.getName()).log(Level.SEVERE, null, e);
-            }
+            closeConnection();
         }
         return object;
     }
@@ -58,12 +53,7 @@ public class AccountRepository extends Repository implements IAccountRepository{
         }catch (ClassNotFoundException | SQLException e) {
             Logger.getLogger(UserRepository.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (ps != null) ps.close();
-            } catch (SQLException e) {
-                Logger.getLogger(UserRepository.class.getName()).log(Level.SEVERE, null, e);
-            }
+            closeConnection();
         }
         return false;
     }
@@ -88,12 +78,7 @@ public class AccountRepository extends Repository implements IAccountRepository{
         } catch (ClassNotFoundException | SQLException e) {
             Logger.getLogger(AccountRepository.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (ps != null) ps.close();
-            } catch (SQLException e) {
-                Logger.getLogger(AccountRepository.class.getName()).log(Level.SEVERE, null, e);
-            }
+            closeConnection();
         }
         return account;
     }

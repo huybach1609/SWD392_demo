@@ -66,12 +66,7 @@ public class UserRepository extends Repository implements IUserRepository {
         }catch (ClassNotFoundException | SQLException e) {
             Logger.getLogger(UserRepository.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (ps != null) ps.close();
-            } catch (SQLException e) {
-                Logger.getLogger(UserRepository.class.getName()).log(Level.SEVERE, null, e);
-            }
+            closeConnection();
         }
         return false;
     }
@@ -101,12 +96,7 @@ public class UserRepository extends Repository implements IUserRepository {
         } catch (ClassNotFoundException | SQLException e) {
             Logger.getLogger(UserRepository.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (ps != null) ps.close();
-            } catch (SQLException e) {
-                Logger.getLogger(UserRepository.class.getName()).log(Level.SEVERE, null, e);
-            }
+            closeConnection();
         }
         return user;
     }

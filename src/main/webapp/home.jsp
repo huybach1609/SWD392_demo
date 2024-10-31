@@ -13,7 +13,7 @@
 <div>
   <%@include file="./view/Shared/navbar.jsp" %>
   <div>
-    <div>uc-8</div>
+    <label>UC-8</label>
     <a href="${pageContext.request.contextPath}/hoidap/list">hoi dap kien nghi</a>
   </div>
   <div>
