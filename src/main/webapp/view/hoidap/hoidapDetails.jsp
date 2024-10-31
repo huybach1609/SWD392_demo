@@ -50,8 +50,8 @@
         <!-- Statistics Sidebar -->
         <div class="statistics-box">
             <h6>Thống kê</h6>
-            <p>Số câu hỏi đã trả lời: <b>4</b></p>
-            <p>Số câu hỏi trả lời chậm: <b>0</b></p>
+            <p>Số câu hỏi đã trả lời: <b>${num1}</b></p>
+            <p>Số câu hỏi trả lời chậm: <b>${num2}</b></p>
         </div>
     </div>
 
@@ -59,7 +59,7 @@
     <c:set var="dateFormat" value="dd/MM/yyyy HH:mm"/>
     <div class="question-section mt-4">
         <p><strong>Câu hỏi:</strong> <span class="highlight">${question.title}</span></p>
-        <p><strong>Người hỏi:</strong> ${question.user.firstName} ${question.user.lastName}</p>
+        <p><strong>Người hỏi:</strong> ${question.sender.firstName} ${question.sender.lastName}</p>
         <%--        <p><strong>Địa chỉ:</strong> Yên Thắng - Ý Yên - Nam Định, Xã Yên Thắng, Huyện Ý Yên, Tỉnh Nam Định</p>--%>
         <p><strong>Ngày hỏi:</strong>
             <fmt:formatDate value="${question.askDate}" pattern="${dateFormat}" var="formattedStartDate"/>
@@ -69,50 +69,46 @@
         <p>${question.content}</p>
     </div>
 
-    <c:if test="${action == 4}">
+    <c:if test="${action == 4 && ans == null }">
         <div class="answer-section mt-3">
             <form method="post" action="<%=request.getContextPath()%>/hoidap/details">
-                    <div class="card-body">
-                        <h5 class="card-title">trả lời</h5>
-                        <input name="quesId" type="hidden" class="form-control"
-                               value="${question.id}">
+                <div class="card-body">
+                    <h5 class="card-title">trả lời</h5>
+                    <input name="quesId" type="hidden" class="form-control"
+                           value="${question.id}">
+                    <div class="mt-3">
 
-                        <div class="my-3">
-                            <input name="ansTitle" type="text" class="form-control" id="questionTitle"
-                                   placeholder="Enter question title" value="${question.title}">
-                        </div>
+                        department: <strong> ${departmentName}</strong>
+                    </div>
 
-                        <div class="mb-3">
-                            <select id="department" name="ansDepartment" class="form-select" required>
-                                <option selected>--Chọn đơn vị trả lời--</option>
-                                <c:forEach items="${departments}" var="de">
-                                    <option value="${de.id}">${de.departmentName}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
 
-                        <div class="mb-3">
+                    <div class="my-3">
+                        <input name="ansTitle" type="text" class="form-control" id="questionTitle"
+                               placeholder="Enter question title" value="${question.title}">
+                    </div>
+
+
+                    <div class="mb-3">
                             <textarea name="ansContent" class="form-control" id="answerContent" rows="3"
                                       placeholder="Enter the content of the answer"></textarea>
-                        </div>
-                        <div class="row mx-1">
-                            <!-- Submit Button -->
-                            <button type="submit" class="col-auto btn btn-primary">Submit Answer</button>
-                            <!-- Back Button -->
-                            <a class="btn btn-outline-secondary col-auto mx-2"
-                               href="<c:url value='/hoidap/list'/>"
-                            >Huỷ</a>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="row mx-1">
+                        <!-- Submit Button -->
+                        <button type="submit" class="col-auto btn btn-primary">Submit Answer</button>
+                        <!-- Back Button -->
+                        <a class="btn btn-outline-secondary col-auto mx-2"
+                           href="<c:url value='/hoidap/list'/>"
+                        >Huỷ</a>
+                    </div>
+                </div>
             </form>
         </div>
 
     </c:if>
 
-    <c:forEach items="${question.answerList}" var="ans" varStatus="status">
-        <!-- Answer Detail -->
-        <div class="answer-section mt-3">
-            <p><strong>Câu trả lời số:</strong> ${status.index + 1}</p>
+    <!-- Answer Detail -->
+    <div class="answer-section mt-3">
+        <c:if test="${ans != null}">
             <p><strong>Trả lời câu hỏi:</strong> <span class="highlight">${question.title}</span></p>
             <p><strong>Đơn vị trả lời:</strong> ${question.department.departmentName}</p>
             <p><strong>Ngày trả lời:</strong>
@@ -121,8 +117,10 @@
             </p>
             <p><strong>Nội dung câu trả lời</strong></p>
             <p class="response-text">${ans.content}</p>
-        </div>
-    </c:forEach>
+        </c:if>
+
+    </div>
+    <%--    </c:forEach>--%>
 
     <!-- Back Button -->
     <div class="mt-3">

@@ -1,5 +1,7 @@
 package com.practice.swd392_demo.models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import lombok.*;
 
@@ -20,4 +22,13 @@ public class Answer {
     // external
     private User user;
     private Question question;
+
+    public Answer(ResultSet rs) throws SQLException {
+        this.id= rs.getInt("id");
+        this.title = rs.getString("title");
+        this.content = rs.getString("content");
+        this.answerDate= rs.getDate("answer_date");
+        this.answeredId = rs.getInt("answerer_id");
+        this.questionId = rs.getInt("question_id");
+    }
 }

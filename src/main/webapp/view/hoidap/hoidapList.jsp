@@ -37,8 +37,10 @@
 
     <!-- Question Form Section -->
     <div class="mt-3">
+
         <h5>Đặt câu hỏi</h5>
         <div class="row">
+            <c:if test="${!isStaff}">
             <div class="col-md-8">
 
                 <form method="post" action="<%=request.getContextPath()%>/hoidap/list">
@@ -61,12 +63,13 @@
                     </button>
                 </form>
             </div>
+            </c:if>
             <!-- Statistics Section -->
             <div class="col-md-4">
                 <div class="border p-3">
                     <h6>Thống kê</h6>
-                    <p>Số câu hỏi đã trả lời: <b>4</b></p>
-                    <p>Số câu hỏi trả lời chậm: <b>0</b></p>
+                    <p>Số câu hỏi đã trả lời: <b>${num1}</b></p>
+                    <p>Số câu hỏi trả lời chậm: <b>${num2}</b></p>
                 </div>
             </div>
         </div>
@@ -74,6 +77,7 @@
 
     <!-- Questions List Section -->
     <div class="mt-4">
+
         <h5>Danh sách hỏi đáp, kiến nghị</h5>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
@@ -100,7 +104,7 @@
                                     ${q.title}
                             </a>
                         </td>
-                        <td>${q.user.firstName} ${q.user.lastName}</td>
+                        <td>${q.sender.firstName} ${q.sender.lastName}</td>
                         <td>
                             <fmt:formatDate value="${q.askDate}" pattern="${dateFormat}" var="formattedStartDate" />
                             ${formattedStartDate}
@@ -114,13 +118,14 @@
                                     trả lời
                                 </a>
                             </td>
-                        </c:if>
+                  user </c:if>
                     </tr>
 
                 </c:forEach>
                 </tbody>
             </table>
         </div>
+
         <!-- Pagination -->
         <div class="d-flex justify-content-between align-items-center">
             <div>
