@@ -1,5 +1,8 @@
 package com.practice.swd392_demo.controller.hoidap;
 
+import com.practice.swd392_demo.DAL.AnswerDAO;
+import com.practice.swd392_demo.DAL.DepartmentDAO;
+import com.practice.swd392_demo.DAL.QuestionDAO;
 import com.practice.swd392_demo.enums.AccountRole;
 import com.practice.swd392_demo.models.Answer;
 import com.practice.swd392_demo.models.Department;
@@ -25,32 +28,40 @@ import java.util.UUID;
 
 @WebServlet(name = "QuestionDetails", urlPatterns = {"/hoidap/details"})
 public class QADetailController extends HttpServlet {
-
     List<Department> departments;
-    private String action;
-    private int qIdint;
 
-    @Override
-    public void init() throws ServletException {
-        qIdint = 0;
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 1 view detail, 2 delete, 3 update, 4 tra loi
-        if (action == null && qIdint == 0) {
-            action = req.getParameter("action");
-            String qId = req.getParameter("questionId");
-            qIdint = Integer.parseInt(qId);
+        HttpSession session = req.getSession();
+        User demoUser = (User) session.getAttribute("userSession");
+        if (demoUser == null) {
+            resp.sendRedirect(req.getContextPath() + "/home");
         }
+
+        // 1 view detail, 2 delete, 3 update, 4 tra loi
+        int action = Integer.parseInt(req.getParameter("action"));
+        String qId = req.getParameter("questionId");
+        int qIdint = Integer.parseInt(qId);
 
         IQuestionRepository repo = new QuestionRepository();
         Question question = repo.GetQuestion(qIdint);
 
-        departments = new ArrayList<>();
-        sampleList();
+        departments = DepartmentDAO.ins.getList();
 
-        req.setAttribute("departments", departments);
+        Answer ans = AnswerDAO.ins.getByQuestionId(qIdint);
+
+        int cauhoidatraloi = CalcNum();
+        int totalCauhoi = QuestionDAO.ins.getList().toArray().length;
+        System.out.println(totalCauhoi);
+
+        req.setAttribute("num1", cauhoidatraloi);
+        req.setAttribute("num2", totalCauhoi - cauhoidatraloi);
+
+        if(demoUser.getDepartment() != null) {
+            req.setAttribute("departmentName", demoUser.getDepartment().getDepartmentName());
+        }
+        req.setAttribute("ans", ans);
         req.setAttribute("question", question);
         req.setAttribute("action", action);
         req.setAttribute("navIndex", 3);
@@ -62,14 +73,12 @@ public class QADetailController extends HttpServlet {
 //        ansTitle,ansDepartment,ansContent
         String title = req.getParameter("ansTitle");
         String content = req.getParameter("ansContent");
-        int departmentId = Integer.parseInt(req.getParameter("ansDepartment"));
         int questionId = Integer.parseInt(req.getParameter("quesId"));
 
         HttpSession session = req.getSession();
         User demoUser = (User) session.getAttribute("userSession");
         if (demoUser == null) {
             // return to error page no have session
-            demoUser = new User(1, "Demo", "User", "Example", AccountRole.USER); // replace with actual user if needed
         }
         Answer ans = new Answer();
 
@@ -78,18 +87,22 @@ public class QADetailController extends HttpServlet {
         ans.setAnswerDate(new Date());
         ans.setAnsweredId(demoUser.getId());
         ans.setQuestionId(questionId);
+
         IAnswerRepository repository = new AnswerRepository();
         repository.InsertAnswer(ans);
-        action = "4";
-        qIdint = questionId;
-        doGet(req, resp);
+
+        resp.sendRedirect(req.getContextPath() + "/hoidap/details?questionId="+questionId+"&action=4");
     }
 
-    private void sampleList() {
-        departments.add(new Department(1, "Cục hợp tác quốc tế"));
-        departments.add(new Department(2, "Cục quản lí chất lượng"));
-        departments.add(new Department(3, "Cục Tổ chức cán bộ"));
-        departments.add(new Department(4, "Cục Nhà giáo và Cán bo quản lý giáo dục"));
+    private int CalcNum() {
+        int cauhoidatraloi = 0;
+        for (Question q : QuestionDAO.ins.getList()) {
+            if (AnswerDAO.ins.getByQuestionId(q.getId()) != null) {
+                cauhoidatraloi++;
+            }
+        }
+        return cauhoidatraloi;
     }
+
 
 }

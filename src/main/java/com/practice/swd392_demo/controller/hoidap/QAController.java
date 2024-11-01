@@ -1,6 +1,10 @@
 package com.practice.swd392_demo.controller.hoidap;
 
 
+import com.practice.swd392_demo.DAL.AccountDAO;
+import com.practice.swd392_demo.DAL.AnswerDAO;
+import com.practice.swd392_demo.DAL.DepartmentDAO;
+import com.practice.swd392_demo.DAL.QuestionDAO;
 import com.practice.swd392_demo.enums.AccountRole;
 import com.practice.swd392_demo.models.*;
 import com.practice.swd392_demo.repository.question.IQuestionRepository;
@@ -22,20 +26,35 @@ public class QAController extends HttpServlet {
 
     List<Question> questions;
     List<Department> departments;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User demoUser = (User) session.getAttribute("userSession");
-        if(demoUser == null){
-
+        if (demoUser == null) {
+            resp.sendRedirect(req.getContextPath() +"/home");
         }
-        departments = new ArrayList<>();
+
+        departments = DepartmentDAO.ins.getList();
+
         IQuestionRepository repository = new QuestionRepository();
         questions = repository.getList();
 
-        sampleList();
+        // get roleAcc
+        AccountRole role = AccountDAO.ins.getByUID(demoUser.getId()).getRole();
+        System.out.println(AccountDAO.ins.getStatus());
+
+
+        int cauhoidatraloi = CalcNum();
+        int totalCauhoi = QuestionDAO.ins.getList().toArray().length;
+        System.out.println(totalCauhoi);
+
+        req.setAttribute("num1", cauhoidatraloi);
+        req.setAttribute("num2", totalCauhoi-cauhoidatraloi);
+
+
         req.setAttribute("questions", questions);
-        req.setAttribute("isStaff", demoUser.getRole() == AccountRole.STAFF);
+        req.setAttribute("isStaff", role == AccountRole.STAFF);
         req.setAttribute("departments", departments);
         req.setAttribute("mess", "hello");
         req.setAttribute("navIndex", 3);
@@ -55,47 +74,53 @@ public class QAController extends HttpServlet {
 
         HttpSession session = req.getSession();
         User demoUser = (User) session.getAttribute("userSession");
-        if(demoUser == null){
-            demoUser = new User(1, "Demo", "User", "Example", AccountRole.USER); // replace with actual user if needed
+        if (demoUser == null) {
+//            reuturn error page()
         }
-        // Create a new Question with demo data for user and department
-        Department selectedDepartment = departments.stream()
-                .filter(department -> department.getId() == departmentId)
-                .findFirst()
-                .orElse(null);
 
-        if (selectedDepartment != null) {
-            // Create and insert new question
-            Question newQuestion = new Question(
-                    questions.size() + 1, // Generate ID
-                    title,
-                    content,
-                    currentDate,
-                    demoUser.getId(), // Use demoUser's ID
-                    departmentId,
-                    new ArrayList<>(), // Empty answers list for new question
-                    demoUser,
-                    selectedDepartment
-            );
+        // Create and insert new question
+        Question newQuestion = new Question();
+        newQuestion.setTitle(title);
+        newQuestion.setContent(content);
+        newQuestion.setAskDate(currentDate);
+        newQuestion.setSenderId(demoUser.getId());
+        newQuestion.setDepartmentId(departmentId);
 
-            repository.InsertQuestion(newQuestion);
-            questions = repository.getList();
+        System.out.println("insert question: " + newQuestion);
+        repository.InsertQuestion(newQuestion);
+        questions = repository.getList();
 
-            req.setAttribute("questions", questions);
-            req.setAttribute("departments", departments);
-            req.setAttribute("mess", "Question submitted successfully!");
-            req.setAttribute("navIndex", 3);
-            req.setAttribute("isStaff", demoUser.getRole() == AccountRole.STAFF);
-            req.getRequestDispatcher("/view/hoidapList.jsp").forward(req, resp);
-        } else {
-            req.setAttribute("mess", "Error: Selected department not found.");
-            req.getRequestDispatcher("/view/hoidapList.jsp").forward(req, resp);
+        // get roleAcc
+        AccountRole role = AccountDAO.ins.getByUID(demoUser.getId()).getRole();
+
+
+        int cauhoidatraloi = CalcNum();
+        int totalCauhoi = QuestionDAO.ins.getList().toArray().length;
+        System.out.println(totalCauhoi);
+
+        req.setAttribute("num1", cauhoidatraloi);
+        req.setAttribute("num2", totalCauhoi-cauhoidatraloi);
+
+
+        req.setAttribute("questions", questions);
+        req.setAttribute("departments", departments);
+        req.setAttribute("mess", "Question submitted successfully!");
+        req.setAttribute("navIndex", 3);
+        req.setAttribute("isStaff", role == AccountRole.STAFF);
+
+        req.getRequestDispatcher("/view/hoidap/hoidapList.jsp").forward(req, resp);
+    }
+
+
+    private int CalcNum(){
+        int cauhoidatraloi = 0;
+        for(Question q : QuestionDAO.ins.getList()){
+            if( AnswerDAO.ins.getByQuestionId(q.getId())!= null){
+                cauhoidatraloi++;
+            }
         }
+        return cauhoidatraloi;
     }
-    private void sampleList(){
-       departments.add(new Department(1, "Cục hợp tác quốc tế"));
-        departments.add(new Department(2, "Cục quản lí chất lượng"));
-        departments.add(new Department(3, "Cục Tổ chức cán bộ"));
-        departments.add(new Department(4, "Cục Nhà giáo và Cán bo quản lý giáo dục"));
-    }
+
+
 }
